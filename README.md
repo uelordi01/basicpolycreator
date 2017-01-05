@@ -3,19 +3,19 @@
 This project is based on canvas HTML5 basic poligon drawing. 
 
 ## Features: 
--add marker. 
--delete marker.
--find marker. 
--move marker. 
+* add marker. 
+* delete marker.
+* find marker. 
+* move marker. 
 ## Samples: 
-index1.html -> control, move, add markers statically using code
-index2.html -> add,remove,move and add markers statically using mouse button events
+* index1.html -> control, move, add markers statically using code
+* index2.html -> add,remove,move and add markers statically using mouse button events
 
 ### 3rdParty libraries: 
- twitter bootstrap (only for the css visualization), better look :).
-BUGS:
-### delete Point: when some marker is deleted, the dropdown menu doesn't stop de propagation.
- add New Point: id doesn't work fine, when some marker is added it isn't always added between 2 nearest markers.
+* twitter bootstrap (only for the css visualization), better look :).
+### ISSUES:
+* delete Point: when some marker is deleted, the dropdown menu doesn't stop de propagation.
+* add New Point: id doesn't work fine, when some marker is added it isn't always added between 2 nearest markers.
 
 ## It works on: 
 Google chrome Versión 31.0.1650.57 m 
@@ -28,7 +28,7 @@ firefox
 
 ## Code Usage:
 
-
+```
   var canvasDiv="viewport";
   var canvasContext;
   var canvasObject;
@@ -54,4 +54,6 @@ firefox
 	renderObject.setMarkerList(markerObject.getList()); 
 
    });
- ```
+```
+## Authors
+Unai Elordi
