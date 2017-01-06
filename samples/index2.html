@@ -20,6 +20,7 @@
 
 	//markerObject=new MarkerHandler();
   cuadObject=new Shape();
+  cuadObject1=new Shape();
 	renderObject=new RenderHandler(canvasContext);
 
 	canvasObject=document.getElementById(canvasDiv);
@@ -30,13 +31,18 @@
 	cuadObject.addMarker(canvasObject.width/2+50,canvasObject.height/2+50);
 	cuadObject.addMarker(canvasObject.width/2+50,canvasObject.height/2-50);
   renderObject.addRenderElement(cuadObject);
-	//cuadObject.setMarkerList(markerObject.getList());
 
+  cuadObject1.addMarker(0,0);
+  cuadObject1.addMarker(10,0);
+  cuadObject1.addMarker(10,10);
+  cuadObject1.addMarker(0,10);
+	//cuadObject.setMarkerList(markerObject.getList());
+  renderObject.addRenderElement(cuadObject1);
   setInterval(render,10);
 });
 function render()
 {
-	  renderObject.drawShape(cuadObject,renderObject);
+	  renderObject.drawRenderElements(renderObject);
 }
 </script>
   </head>
