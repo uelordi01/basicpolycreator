@@ -18,95 +18,25 @@
 
 	canvasContext=document.getElementById(canvasDiv).getContext("2d");
 
-	shapeObject=new Shape();
+	//markerObject=new MarkerHandler();
+  cuadObject=new Shape();
 	renderObject=new RenderHandler(canvasContext);
 
 	canvasObject=document.getElementById(canvasDiv);
 	renderObject.setViewWidth(canvasObject.width);
 	renderObject.setViewHeight(canvasObject.height);
-	shapeObject.addMarker(canvasObject.width/2-50,canvasObject.height/2-50);
-	shapeObject.addMarker(canvasObject.width/2-50,canvasObject.height/2+50);
-	shapeObject.addMarker(canvasObject.width/2+50,canvasObject.height/2+50);
-	shapeObject.addMarker(canvasObject.width/2+50,canvasObject.height/2-50);
-	renderObject.setMarkerList(shapeObject.getList());
+	cuadObject.addMarker(canvasObject.width/2-50,canvasObject.height/2-50);
+	cuadObject.addMarker(canvasObject.width/2-50,canvasObject.height/2+50);
+	cuadObject.addMarker(canvasObject.width/2+50,canvasObject.height/2+50);
+	cuadObject.addMarker(canvasObject.width/2+50,canvasObject.height/2-50);
+  renderObject.addRenderElement(cuadObject);
+	//cuadObject.setMarkerList(markerObject.getList());
 
-	canvasObject.onmousedown=function(e){
-		var canvas=document.getElementById(canvasDiv);
-		var mousePos = getMousePos(canvas, e);
-		mouseDown=true;
-		var x=mousePos.x;
-		var y=mousePos.y;
-		var index=shapeObject.findMarker(x,y);
-		switch(e.which)
-		{
-			case 1:
-			{
-				break;
-			}
-			case 3:
-			{
-			    shapeObject.deleteMarker(index);
-				index=-1;
-				break;
-			}
-		}
-		if(index!=-1)
-		{
-			shapeObject.setSelected(index);
-			renderObject.setMarkerList(shapeObject.getList());
-			console.log("found index: "+index);
-		}
-		else
-		{
-			shapeObject.setSelected(index);
-			renderObject.setMarkerList(shapeObject.getList());
-			index=shapeObject.addNewSelectedMarker(x,y);
-			console.log("not found");
-
-		}
-
-
-	}
-	canvasObject.onmousemove=function(e)
-	{
-		var canvas=document.getElementById(canvasDiv);
-		var mousePos = getMousePos(canvas, e);
-		var x=mousePos.x;
-		var y=mousePos.y;
-
-		if(mouseDown)
-		{
-			if(e.which==1)
-			{
-				index=shapeObject.getSelectedIndex();
-				if(index!=-1)
-				{
-					shapeObject.setMarkerPos(index,x,y);
-				}
-				else
-				{
-
-				}
-			}
-		}
-
-	}
-	canvasObject.onmouseup=function(e)
-	{
-
-		if(mouseDown)
-		{
-			mouseDown=false;
-		}
-
-	}
-	setInterval(render,10);
-  }
-
-  );
+  setInterval(render,10);
+});
 function render()
 {
-	renderObject.drawMarkers(renderObject);
+	  renderObject.drawShape(cuadObject,renderObject);
 }
 </script>
   </head>
@@ -125,7 +55,7 @@ function render()
 
         <div id="canvasDiv" >
 		<p>
-		<!-- <h3>Calibration test:second step</h3> -->
+		<h3>Calibration test:second step</h3>
       <!-- It's bad practice (to me) to put your CSS here.  I'd recommend the use of a CSS file! -->
 		<canvas id="viewport" width="640px" height="480px" style="border:2px solid #000000;background-color:white;"></canvas>
 		</p></div>
@@ -133,7 +63,7 @@ function render()
 
 
       <div class="row marketing">
-        <!-- <div class="col-lg-6">
+        <div class="col-lg-6">
           <h4>Subheading</h4>
           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
@@ -154,7 +84,7 @@ function render()
           <h4>Subheading</h4>
           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
         </div>
-      </div> -->
+      </div>
 
       <div class="footer">
         <p>&copy; Moustache Team 2013</p>

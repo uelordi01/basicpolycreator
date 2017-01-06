@@ -9,26 +9,26 @@
   var canvasDiv="viewport";
   var canvasContext;
   var canvasObject;
-  var markerObject; 
+  var markerObject;
   var mouseDown=false;
   $(document).ready(function()
   {
-  
-  
+
+
 	canvasContext=document.getElementById(canvasDiv).getContext("2d");
 
-	markerObject=new MarkerHandler();
+	shapeObject=new Shape();
 	renderObject=new RenderHandler(canvasContext);
-	
+
 	canvasObject=document.getElementById(canvasDiv);
 	renderObject.setViewWidth(canvasObject.width);
 	renderObject.setViewHeight(canvasObject.height);
-	markerObject.addMarker(50,50);
-	markerObject.addMarker(50,100);
-	markerObject.addMarker(100,100);
-	markerObject.addMarker(100,50);
-	renderObject.setMarkerList(markerObject.getList());
-	
+	shapeObject.addMarker(50,50);
+	shapeObject.addMarker(50,100);
+	shapeObject.addMarker(100,100);
+	shapeObject.addMarker(100,50);
+	renderObject.setMarkerList(shapeObject.getList());
+
 	canvasObject.onmousedown=function(e){
 		var canvas=document.getElementById(canvasDiv);
 		mouseDown=true;
@@ -36,18 +36,18 @@
 		mouseDown=true;
 		var x=mousePos.x;
 		var y=mousePos.y;
-		var index=markerObject.findMarker(x,y);
+		var index=shapeObject.findMarker(x,y);
 		if(index!=-1)
 		{
-			markerObject.setSelected(index);
-			renderObject.setMarkerList(markerObject.getList());
+			shapeObject.setSelected(index);
+			renderObject.setMarkerList(shapeObject.getList());
 		}
 		else
 		{
-			markerObject.setSelected(index);
-			renderObject.setMarkerList(markerObject.getList());
+			shapeObject.setSelected(index);
+			renderObject.setMarkerList(shapeObject.getList());
 		}
-		
+
 	}
 	canvasObject.onmousemove=function(e)
 	{
@@ -55,13 +55,13 @@
 		var mousePos = getMousePos(canvas, e);
 		var x=mousePos.x;
 		var y=mousePos.y;
-		
+
 		if(mouseDown)
 		{
-		index=markerObject.getSelectedIndex();
+		index=shapeObject.getSelectedIndex();
 			if(index!=-1)
 			{
-				markerObject.setMarkerPos(index,x,y);
+				shapeObject.setMarkerPos(index,x,y);
 				console.log("found index: "+index)
 			}
 			else
@@ -69,16 +69,16 @@
 				console.log("not found");
 			}
 		}
-		
+
 	}
 	canvasObject.onmouseup=function(e)
 	{
-		
+
 		if(mouseDown)
 		{
 			mouseDown=false;
 		}
-		
+
 	}
 	setInterval(render,10);
   }
