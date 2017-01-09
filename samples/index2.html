@@ -5,17 +5,14 @@
   <link href="../jumbotron-narrow.css" rel="stylesheet">
   <script type="text/javascript" src="../lib/jquery.js"></script>
   <script type="text/javascript" src="../lib/marker.js"></script>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
   <script type="text/javascript">
   var canvasDiv="viewport";
   var canvasContext;
   var canvasObject;
-  var markerObject;
-  var mouseDown=false;
-
+  var renderObject;
   $(document).ready(function()
   {
-
-
 	canvasContext=document.getElementById(canvasDiv).getContext("2d");
 
 	//markerObject=new MarkerHandler();
@@ -26,20 +23,18 @@
 	canvasObject=document.getElementById(canvasDiv);
 	renderObject.setViewWidth(canvasObject.width);
 	renderObject.setViewHeight(canvasObject.height);
-	cuadObject.addMarker(canvasObject.width/2-50,canvasObject.height/2-50);
-	cuadObject.addMarker(canvasObject.width/2-50,canvasObject.height/2+50);
-	cuadObject.addMarker(canvasObject.width/2+50,canvasObject.height/2+50);
-	cuadObject.addMarker(canvasObject.width/2+50,canvasObject.height/2-50);
+  cuadObject.createRectangle(15,50,100,100);
   renderObject.addRenderElement(cuadObject);
-
-  cuadObject1.addMarker(0,0);
-  cuadObject1.addMarker(10,0);
-  cuadObject1.addMarker(10,10);
-  cuadObject1.addMarker(0,10);
-	//cuadObject.setMarkerList(markerObject.getList());
-  renderObject.addRenderElement(cuadObject1);
   setInterval(render,10);
 });
+function addRandomRectangle()
+{
+  posx=Math.floor((Math.random() * 500) + 1);
+  posy=Math.floor((Math.random() * 500) + 1);
+  test=new Shape();
+  test.createRectangle(posx,posy,100,50);
+  renderObject.addRenderElement(test);
+}
 function render()
 {
 	  renderObject.drawRenderElements(renderObject);
@@ -55,21 +50,73 @@ function render()
           <li class="active"><a href="index1.html">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        <h3 class="text-muted"><b>Example 2:</b> <br>Create rectangle, pick markers,add delete points</h3>
+        <h3 class="text-muted"><b>Example 2:</b> <br>creates many rectangles</h3>
       </div>
 
 
         <div id="canvasDiv" >
 		<p>
-		<h3>Calibration test:second step</h3>
       <!-- It's bad practice (to me) to put your CSS here.  I'd recommend the use of a CSS file! -->
 		<canvas id="viewport" width="640px" height="480px" style="border:2px solid #000000;background-color:white;"></canvas>
 		</p></div>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">getImage</a><a class="btn btn-lg btn-success" href="#" role="button">NextStep</a></p>
+        <p><a class="btn btn-lg btn-success" href="#" onclick="addRandomRectangle()" role="button">addRectangle</a>
+          <a class="btn btn-lg btn-success" href="#" role="button">NextStep</a>
+        </p>
 
 
       <div class="row marketing">
         <div class="col-lg-6">
+          <h4>Global variables: </h4
+          <p>
+            <pre class="prettyprint">
+              var canvasDiv="viewport";
+              var canvasContext;
+              var canvasObject;
+              var renderObject;
+            </pre>
+          </p>
+          <h4>Function </h4
+          <p>
+            <pre class="prettyprint">
+              function addRandomRectangle()
+              {
+                posx=Math.floor((Math.random() * 500) + 1);
+                posy=Math.floor((Math.random() * 500) + 1);
+                test=new Shape();
+                test.createRectangle(posx,posy,100,50);
+                renderObject.addRenderElement(test);
+              }
+            </pre>
+          </p>
+          <h4>createRectangle function </h4
+          <p>
+            <pre class="prettyprint">
+              Shape.prototype.createRectangle=function(x,y,width,height)
+              {
+                this.addMarker(x,y);
+                this.addMarker(x+width,y);
+                this.addMarker(x+width,y+height);
+                this.addMarker(x,y+height);
+              }
+            </pre>
+          </p>
+        </div>
+        <p>
+
+        <p>
+          <!-- <code>create a rectangle code:
+            function addRandomRectangle()
+            {
+              posx=Math.floor((Math.random() * 500) + 1);
+              posy=Math.floor((Math.random() * 500) + 1);
+              test=new Shape();
+              test.createRectangle(posx,posy,100,50);
+              renderObject.addRenderElement(test);
+            }
+
+
+          </code> -->
+        <!-- <div class="col-lg-6">
           <h4>Subheading</h4>
           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
@@ -89,7 +136,7 @@ function render()
 
           <h4>Subheading</h4>
           <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
+        </div> -->
       </div>
 
       <div class="footer">
