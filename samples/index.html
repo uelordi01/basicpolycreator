@@ -1,92 +1,36 @@
 <html>
 <title>HTML5 EXAMPLES</title>
 <head>
-  <link href="../dist/css/bootstrap.css" rel="stylesheet">
+   <link href="../dist/css/bootstrap.css" rel="stylesheet">
   <link href="../jumbotron-narrow.css" rel="stylesheet">
   <script type="text/javascript" src="../lib/jquery.js"></script>
   <script type="text/javascript" src="../lib/marker.js"></script>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
   <script type="text/javascript">
   var canvasDiv="viewport";
-  var canvasContext;
-  var canvasObject;
-  var markerObject;
-  var mouseDown=false;
+  var canvasContext; //canvas 2D context:
+  var canvasObject; //canvas dom element
+  var renderObject; //render class
   $(document).ready(function()
   {
-
-
 	canvasContext=document.getElementById(canvasDiv).getContext("2d");
 
-	shapeObject=new Shape();
+	//markerObject=new MarkerHandler();
+  cuadObject=new Shape();
 	renderObject=new RenderHandler(canvasContext);
 
 	canvasObject=document.getElementById(canvasDiv);
+
 	renderObject.setViewWidth(canvasObject.width);
 	renderObject.setViewHeight(canvasObject.height);
-	shapeObject.addMarker(50,50);
-	shapeObject.addMarker(50,100);
-	shapeObject.addMarker(100,100);
-	shapeObject.addMarker(100,50);
-	renderObject.setMarkerList(shapeObject.getList());
+  cuadObject.createRectangle(canvasObject.width/2-50,canvasObject.height/2-50,100,100);
 
-	canvasObject.onmousedown=function(e){
-		var canvas=document.getElementById(canvasDiv);
-		mouseDown=true;
-		var mousePos = getMousePos(canvas, e);
-		mouseDown=true;
-		var x=mousePos.x;
-		var y=mousePos.y;
-		var index=shapeObject.findMarker(x,y);
-		if(index!=-1)
-		{
-			shapeObject.setSelected(index);
-			renderObject.setMarkerList(shapeObject.getList());
-		}
-		else
-		{
-			shapeObject.setSelected(index);
-			renderObject.setMarkerList(shapeObject.getList());
-		}
-
-	}
-	canvasObject.onmousemove=function(e)
-	{
-		var canvas=document.getElementById(canvasDiv);
-		var mousePos = getMousePos(canvas, e);
-		var x=mousePos.x;
-		var y=mousePos.y;
-
-		if(mouseDown)
-		{
-		index=shapeObject.getSelectedIndex();
-			if(index!=-1)
-			{
-				shapeObject.setMarkerPos(index,x,y);
-				console.log("found index: "+index)
-			}
-			else
-			{
-				console.log("not found");
-			}
-		}
-
-	}
-	canvasObject.onmouseup=function(e)
-	{
-
-		if(mouseDown)
-		{
-			mouseDown=false;
-		}
-
-	}
-	setInterval(render,10);
-  }
-
-  );
+  renderObject.addRenderElement(cuadObject);
+  setInterval(render,10);
+});
 function render()
 {
-	renderObject.drawMarkers(renderObject);
+	  renderObject.drawRenderElements(renderObject);
 }
 </script>
   </head>
@@ -95,23 +39,103 @@ function render()
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="../index.html">Home</a></li>
-          <li><a href="index1.html">About</a></li>
+          <li ><a href="../index.html">Home</a></li>
+          <li class="active"><a href="index1.html">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        <h3 class="text-muted">Example 1: create rectangle and pick markers</h3>
+        <h3 class="text-muted"><b>Example 1:</b> <br>create a basic rectangle</h3>
       </div>
+
 
         <div id="canvasDiv" >
 		<p>
       <!-- It's bad practice (to me) to put your CSS here.  I'd recommend the use of a CSS file! -->
 		<canvas id="viewport" width="640px" height="480px" style="border:2px solid #000000;background-color:white;"></canvas>
 		</p></div>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">getImage</a><a class="btn btn-lg btn-success" href="index1.html" role="button">NextStep</a></p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button" target="">View SourceCode</a>
+          <a class="btn btn-lg btn-success" href="index2.html" role="button">NextStep</a>
+        </p>
+
 
       <div class="row marketing">
         <div class="col-lg-6">
+          <h4>Global variables: </h4
+          <p>
+            <pre class="prettyprint">
+              var canvasDiv="viewport"; //canvas div name
+              var canvasContext; //canvas 2D context:
+              var canvasObject; //canvas dom element
+              var renderObject; //render class
+            </pre>
+          </p>
+          <h4>Get canvas Object and initalize the space </h4
+          <p>
+            <pre class="prettyprint">
+
+      canvasContext=document.getElementById(canvasDiv).getContext("2d");
+      cuadObject=new Shape();
+      renderObject=new RenderHandler(canvasContext);
+      canvasObject=document.getElementById(canvasDiv);
+      renderObject.setViewWidth(canvasObject.width);
+      renderObject.setViewHeight(canvasObject.height);
+
+
+            </pre>
+          </p>
+          <h4>Create rectangle and add the elemento to the render scene: </h4
+          <p>
+            <pre class="prettyprint">
+      cuadObject.createRectangle(canvasObject.width/2-50,canvasObject.height/2-50,100,100);
+      renderObject.addRenderElement(cuadObject);
+            </pre>
+          </p>
+          <h4>Execute render function</h4
+          <p>
+            <pre class="prettyprint">
+      function render()
+      {
+        renderObject.drawRenderElements(renderObject);
+      }
+      setInterval(render,10);
+            </pre>
+          </p>
         </div>
+        <p>
+
+        <p>
+          <!-- <code>create a rectangle code:
+            function addRandomRectangle()
+            {
+              posx=Math.floor((Math.random() * 500) + 1);
+              posy=Math.floor((Math.random() * 500) + 1);
+              test=new Shape();
+              test.createRectangle(posx,posy,100,50);
+              renderObject.addRenderElement(test);
+            }
+
+
+          </code> -->
+        <!-- <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div> -->
       </div>
 
       <div class="footer">
