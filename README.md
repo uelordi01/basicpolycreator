@@ -21,9 +21,11 @@ This project is based on canvas HTML5 basic poligon drawing.
 
 
 ## It works on: 
-Google chrome Versión 31.0.1650.57 m 
-firefox 
+- Google Chrome Versión 31.0.1650.57 m 
+- Firefox
 
+## Try it:
+- [Demo Online](https://cdn.rawgit.com/uelordi01/basicpolycreator/master/index.html)
 
 ## Instalation: 
 * if you haven't apache server, please install (Xammp, MAMAP, XAMPP, apache server 2.0)
