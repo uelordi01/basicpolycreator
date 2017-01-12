@@ -5,6 +5,7 @@
   <link href="../jumbotron-narrow.css" rel="stylesheet">
   <script type="text/javascript" src="../lib/jquery.js"></script>
   <script type="text/javascript" src="../lib/marker.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
   <script type="text/javascript">
   var canvasDiv="viewport";
   var canvasContext;
@@ -69,16 +70,13 @@
 				console.log("not found");
 			}
 		}
-
 	}
 	canvasObject.onmouseup=function(e)
 	{
-
 		if(mouseDown)
 		{
 			mouseDown=false;
 		}
-
 	}
 	setInterval(render,10);
   }
@@ -99,7 +97,7 @@ function render()
           <li><a href="index1.html">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        <h3 class="text-muted">Example 1: create rectangle and pick markers</h3>
+        <h3 class="text-muted">Example 3: Edit Rectangle sizes</h3>
       </div>
 
         <div id="canvasDiv" >
@@ -107,7 +105,7 @@ function render()
       <!-- It's bad practice (to me) to put your CSS here.  I'd recommend the use of a CSS file! -->
 		<canvas id="viewport" width="640px" height="480px" style="border:2px solid #000000;background-color:white;"></canvas>
 		</p></div>
-        <p><a class="btn btn-lg btn-success" href="#" role="button" target="">View SourceCode</a><a class="btn btn-lg btn-success" href="index4.html" role="button">NextStep</a></p>
+        <p><a class="btn btn-lg btn-success" target="_blank" href="https://github.com/uelordi01/basicpolycreator/tree/master/samples" role="button" target="">View SourceCode</a><a class="btn btn-lg btn-success" href="index4.html" role="button">NextStep</a></p>
 
       <div class="row marketing">
         <div class="col-lg-6">
@@ -115,7 +113,7 @@ function render()
       </div>
 
       <div class="footer">
-        <p>&copy; Moustache Team 2013</p>
+        <p>&copy;uelordi</p>
       </div>
 
     </div> <!-- /container -->
