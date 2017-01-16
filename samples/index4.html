@@ -19,17 +19,15 @@
 
 	canvasContext=document.getElementById(canvasDiv).getContext("2d");
 
-	shapeObject=new Shape();
-	renderObject=new RenderHandler(canvasContext);
 
+	renderObject=new RenderHandler(canvasContext);
+  cuadObject=new Shape();
 	canvasObject=document.getElementById(canvasDiv);
 	renderObject.setViewWidth(canvasObject.width);
 	renderObject.setViewHeight(canvasObject.height);
-	shapeObject.addMarker(canvasObject.width/2-50,canvasObject.height/2-50);
-	shapeObject.addMarker(canvasObject.width/2-50,canvasObject.height/2+50);
-	shapeObject.addMarker(canvasObject.width/2+50,canvasObject.height/2+50);
-	shapeObject.addMarker(canvasObject.width/2+50,canvasObject.height/2-50);
-	renderObject.setMarkerList(shapeObject.getList());
+  cuadObject.createRectangle(canvasObject.width/2-50,canvasObject.height/2-50,100,100);
+  renderObject.addRenderElement(cuadObject);
+	//renderObject.setMarkerList(shapeObject.getList());
 
 	canvasObject.onmousedown=function(e){
 		var canvas=document.getElementById(canvasDiv);
@@ -37,7 +35,7 @@
 		mouseDown=true;
 		var x=mousePos.x;
 		var y=mousePos.y;
-		var index=shapeObject.findMarker(x,y);
+		var index=cuadObject.findMarker(x,y);
 		switch(e.which)
 		{
 			case 1:
@@ -46,22 +44,22 @@
 			}
 			case 3:
 			{
-			    shapeObject.deleteMarker(index);
+			    cuadObject.deleteMarker(index);
 				index=-1;
 				break;
 			}
 		}
 		if(index!=-1)
 		{
-			shapeObject.setSelected(index);
-			renderObject.setMarkerList(shapeObject.getList());
+			cuadObject.setSelected(index);
+			renderObject.setMarkerList(cuadObject.getList());
 			console.log("found index: "+index);
 		}
 		else
 		{
-			shapeObject.setSelected(index);
-			renderObject.setMarkerList(shapeObject.getList());
-			index=shapeObject.addNewSelectedMarker(x,y);
+			cuadObject.setSelected(index);
+			renderObject.setMarkerList(cuadObject.getList());
+			index=cuadObject.addNewSelectedMarker(x,y);
 			console.log("not found");
 
 		}
@@ -79,10 +77,10 @@
 		{
 			if(e.which==1)
 			{
-				index=shapeObject.getSelectedIndex();
+				index=cuadObject.getSelectedIndex();
 				if(index!=-1)
 				{
-					shapeObject.setMarkerPos(index,x,y);
+					cuadObject.setMarkerPos(index,x,y);
 				}
 				else
 				{
@@ -107,7 +105,8 @@
   );
 function render()
 {
-	renderObject.drawMarkers(renderObject);
+	//renderObject.drawMarkers(renderObject);
+      renderObject.drawRenderElements(renderObject);
 }
 </script>
   </head>
@@ -121,6 +120,7 @@ function render()
           <li><a href="#">Contact</a></li>
         </ul>
         <h3 class="text-muted"><b>Example 4:</b> <br>Add new points making clicks on the screen </h3>
+        <p>This sample adds new vertex to a rectangle, create adding more sides for each click outside of the polygon.</p>
       </div>
 
 
@@ -130,7 +130,10 @@ function render()
       <!-- It's bad practice (to me) to put your CSS here.  I'd recommend the use of a CSS file! -->
 		<canvas id="viewport" width="640px" height="480px" style="border:2px solid #000000;background-color:white;"></canvas>
 		</p></div>
-        <p><a class="btn btn-lg btn-success" href="#" role="button" target="">View SourceCode</a><a class="btn btn-lg btn-success" href="#" role="button">getImage</a><a class="btn btn-lg btn-success" href="#" role="button">NextStep</a></p>
+        <p>
+        <a class="btn btn-lg btn-success" target="_blank" href="https://github.com/uelordi01/basicpolycreator/tree/master/samples" role="button" target="">View SourceCode</a>
+        <a class="btn btn-lg btn-success" href="#" role="button">NextStep</a>
+      </p>
 
 
       <div class="row marketing">
