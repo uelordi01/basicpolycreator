@@ -1,0 +1,177 @@
+<html>
+<title>HTML5 EXAMPLES</title>
+<head>
+   <link href="../dist/css/bootstrap.css" rel="stylesheet">
+  <link href="../jumbotron-narrow.css" rel="stylesheet">
+  <script type="text/javascript" src="../lib/jquery.js"></script>
+  <script type="text/javascript" src="../lib/marker.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  <script type="text/javascript">
+  var canvasDiv="viewport";
+  var canvasContext;
+  var canvasObject;
+  var markerObject;
+  var mouseDown=false;
+
+  $(document).ready(function()
+  {
+
+
+	canvasContext=document.getElementById(canvasDiv).getContext("2d");
+
+
+	renderObject=new RenderHandler(canvasContext);
+  cuadObject=new Shape();
+	canvasObject=document.getElementById(canvasDiv);
+	renderObject.setViewWidth(canvasObject.width);
+	renderObject.setViewHeight(canvasObject.height);
+  cuadObject.createRectangle(canvasObject.width/2-50,canvasObject.height/2-50,100,100);
+  renderObject.addRenderElement(cuadObject);
+	//renderObject.setMarkerList(shapeObject.getList());
+
+	canvasObject.onmousedown=function(e){
+		var canvas=document.getElementById(canvasDiv);
+		var mousePos = getMousePos(canvas, e);
+		mouseDown=true;
+    var x=mousePos.x;
+    var y=mousePos.y;
+    var intex=renderObject.findShape(x,y)
+		/*var x=mousePos.x;
+		var y=mousePos.y;
+		var index=cuadObject.findMarker(x,y);
+		switch(e.which)
+		{
+			case 1:
+			{
+				break;
+			}
+			case 3:
+			{
+			    cuadObject.deleteMarker(index);
+				index=-1;
+				break;
+			}
+		}
+		if(index!=-1)
+		{
+			cuadObject.setSelected(index);
+			renderObject.setMarkerList(cuadObject.getList());
+			console.log("found index: "+index);
+		}
+		else
+		{
+			cuadObject.setSelected(index);
+			renderObject.setMarkerList(cuadObject.getList());
+			index=cuadObject.addNewSelectedMarker(x,y,renderObject);
+			console.log("not found");
+
+		}*/
+
+
+	}
+	canvasObject.onmousemove=function(e)
+	{
+		var canvas=document.getElementById(canvasDiv);
+		var mousePos = getMousePos(canvas, e);
+		var x=mousePos.x;
+		var y=mousePos.y;
+
+		if(mouseDown)
+		{
+			if(e.which==1)
+			{
+				index=cuadObject.getSelectedIndex();
+				if(index!=-1)
+				{
+					cuadObject.setMarkerPos(index,x,y);
+				}
+				else
+				{
+
+				}
+			}
+		}
+
+	}
+	canvasObject.onmouseup=function(e)
+	{
+
+		if(mouseDown)
+		{
+			mouseDown=false;
+		}
+
+	}
+	setInterval(render,10);
+  }
+
+  );
+function render()
+{
+	//renderObject.drawMarkers(renderObject);
+      renderObject.drawRenderElements(renderObject);
+}
+</script>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li ><a href="../index.html">Home</a></li>
+          <li class="active"><a href="">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted"><b>Example 5:</b> <br>Picking rotate and translate the object. </h3>
+        <p>his vertex adds many vertex, selects all vertex polygon and also makes a rotation for its center.</p>
+      </div>
+
+
+        <div id="canvasDiv" >
+		<p>
+		<!-- <h3>Calibration test:second step</h3> -->
+      <!-- It's bad practice (to me) to put your CSS here.  I'd recommend the use of a CSS file! -->
+		<canvas id="viewport" width="640px" height="480px" style="border:2px solid #000000;background-color:white;"></canvas>
+		</p></div>
+        <p>
+        <a class="btn btn-lg btn-success" target="_blank" href="https://github.com/uelordi01/basicpolycreator/tree/master/samples" role="button" target="">View SourceCode</a>
+        <a class="btn btn-lg btn-success" href="#" role="button">NextStep</a>
+      </p>
+
+
+      <div class="row marketing">
+        <!-- <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div> -->
+
+      <div class="footer">
+        <p>&copy; Moustache Team 2013</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>
