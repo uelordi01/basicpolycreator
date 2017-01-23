@@ -27,6 +27,9 @@
 	renderObject.setViewHeight(canvasObject.height);
   cuadObject.createRectangle(canvasObject.width/2-50,canvasObject.height/2-50,100,100);
   renderObject.addRenderElement(cuadObject);
+  test=new Shape();
+  test.createRectangle(0,0,100,50);
+  renderObject.addRenderElement(test);
 	//renderObject.setMarkerList(shapeObject.getList());
 
 	canvasObject.onmousedown=function(e){
@@ -35,38 +38,7 @@
 		mouseDown=true;
     var x=mousePos.x;
     var y=mousePos.y;
-    var intex=renderObject.findShape(x,y)
-		/*var x=mousePos.x;
-		var y=mousePos.y;
-		var index=cuadObject.findMarker(x,y);
-		switch(e.which)
-		{
-			case 1:
-			{
-				break;
-			}
-			case 3:
-			{
-			    cuadObject.deleteMarker(index);
-				index=-1;
-				break;
-			}
-		}
-		if(index!=-1)
-		{
-			cuadObject.setSelected(index);
-			renderObject.setMarkerList(cuadObject.getList());
-			console.log("found index: "+index);
-		}
-		else
-		{
-			cuadObject.setSelected(index);
-			renderObject.setMarkerList(cuadObject.getList());
-			index=cuadObject.addNewSelectedMarker(x,y,renderObject);
-			console.log("not found");
-
-		}*/
-
+    var intex=renderObject.findSelectedShape(x,y);
 
 	}
 	canvasObject.onmousemove=function(e)
@@ -80,15 +52,9 @@
 		{
 			if(e.which==1)
 			{
-				index=cuadObject.getSelectedIndex();
-				if(index!=-1)
-				{
-					cuadObject.setMarkerPos(index,x,y);
-				}
-				else
-				{
-
-				}
+          var list=renderObject.getRenderList();
+          var index=renderObject.findSelectedShape(x,y);
+          list[index].moveTo(x,y);
 			}
 		}
 

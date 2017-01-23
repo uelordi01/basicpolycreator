@@ -11,8 +11,11 @@ This project is based on canvas HTML5 basic poligon drawing.
 
 ## Samples:
 
-* index1.html -> control, move, add markers statically using code
-* index2.html -> add,remove,move and add markers statically using mouse button events
+* index1.html -> creates basic rectangle;
+* index2.html -> creates many rectangles;
+* index3.html -> Implemented picking function to edit the rectangle vertexes.
+* index4.html -> It creates a new vertex  in the nearest segment when the user clicks on the canvas.
+* index5.html -> Select the polygon between many polygons. Picking
 
 ### 3rdParty libraries:
 
@@ -35,31 +38,26 @@ This project is based on canvas HTML5 basic poligon drawing.
 ## Code Usage:
 
 ```
-  var canvasDiv="viewport";
-  var canvasContext;
-  var canvasObject;
-  var markerObject;
-  var mouseDown=false;
- $(document).ready(function()
-  {
+var canvasDiv="viewport";
+var canvasContext; //canvas 2D context:
+var canvasObject; //canvas dom element
+var renderObject; //render class
+$(document).ready(function()
+{
+canvasContext=document.getElementById(canvasDiv).getContext("2d");
 
-  	//get canvas context:
-	canvasContext=document.getElementById(canvasDiv).getContext("2d");
-	Create Marker handler:
-	markerObject=new MarkerHandler();
-	//create rendering scene:
-	renderObject=new RenderHandler(canvasContext);
+//markerObject=new MarkerHandler();
+cuadObject=new Shape();
+renderObject=new RenderHandler(canvasContext);
 
-	canvasObject=document.getElementById(canvasDiv);
-	renderObject.setViewWidth(canvasObject.width);
-	renderObject.setViewHeight(canvasObject.height);
-	markerObject.addMarker(50,50);
-	markerObject.addMarker(50,100);
-	markerObject.addMarker(100,100);
-	markerObject.addMarker(100,50);
-	renderObject.setMarkerList(markerObject.getList());
+canvasObject=document.getElementById(canvasDiv);
 
-   });
+renderObject.setViewWidth(canvasObject.width);
+renderObject.setViewHeight(canvasObject.height);
+cuadObject.createRectangle(canvasObject.width/2-50,canvasObject.height/2-50,100,100);
+
+renderObject.addRenderElement(cuadObject);
+setInterval(render,10);
 ```
 ### ISSUES:
 * delete Point: when some marker is deleted, the dropdown menu doesn't stop de propagation.
