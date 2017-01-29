@@ -38,7 +38,14 @@
 		mouseDown=true;
     var x=mousePos.x;
     var y=mousePos.y;
-    var intex=renderObject.findSelectedShape(x,y);
+    var index=renderObject.findSelectedShape(x,y);
+
+    var list=renderObject.getRenderList();
+    for(var i=0;i<list.length;i++)
+    {
+      list[i].deselect();
+    }
+    list[index].printSelected();
 
 	}
 	canvasObject.onmousemove=function(e)
@@ -47,6 +54,7 @@
 		var mousePos = getMousePos(canvas, e);
 		var x=mousePos.x;
 		var y=mousePos.y;
+    $("#mousepos").text("x "+x+" y "+y);
 
 		if(mouseDown)
 		{
@@ -90,6 +98,7 @@ function render()
         </ul>
         <h3 class="text-muted"><b>Example 5:</b> <br>Picking rotate and translate the object. </h3>
         <p>his vertex adds many vertex, selects all vertex polygon and also makes a rotation for its center.</p>
+        <p><div id="mousepos"></div></p>
       </div>
 
 
