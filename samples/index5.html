@@ -5,6 +5,11 @@
   <link href="../jumbotron-narrow.css" rel="stylesheet">
   <script type="text/javascript" src="../lib/jquery.js"></script>
   <script type="text/javascript" src="../lib/marker.js"></script>
+  <script src="../extra/jquery-ui/jquery-1.12.4.js"></script>
+  <script src="../extra/jquery-ui/jquery-ui.js"></script>
+  <link rel="stylesheet" href="../extra/jquery-ui/jquery-ui.css">
+ <link rel="stylesheet" href="../extra/jquery-ui/style.css">
+
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
   <script type="text/javascript">
   var canvasDiv="viewport";
@@ -30,6 +35,7 @@
   test=new Shape();
   test.createRectangle(0,0,100,50);
   renderObject.addRenderElement(test);
+  renderObject.setTranslateSensitivity(0.01);
 	//renderObject.setMarkerList(shapeObject.getList());
 
 	canvasObject.onmousedown=function(e){
@@ -41,6 +47,7 @@
     var index=renderObject.findSelectedShape(x,y);
 
     var list=renderObject.getRenderList();
+    list[index].setPos(x,y);
     for(var i=0;i<list.length;i++)
     {
       list[i].deselect();
@@ -54,7 +61,7 @@
 		var mousePos = getMousePos(canvas, e);
 		var x=mousePos.x;
 		var y=mousePos.y;
-    $("#mousepos").text("x "+x+" y "+y);
+  //  $("#mousepos").text("x "+x+" y "+y);
 
 		if(mouseDown)
 		{
@@ -62,7 +69,8 @@
 			{
           var list=renderObject.getRenderList();
           var index=renderObject.findSelectedShape(x,y);
-          list[index].moveTo(x,y);
+          list[index].moveTo(x,y,0.07);
+          $("#mousepos").text("xpos "+x+" ypos "+y);
 			}
 		}
 
@@ -85,6 +93,19 @@ function render()
 	//renderObject.drawMarkers(renderObject);
       renderObject.drawRenderElements(renderObject);
 }
+$( function() {
+  $( "#slider" ).slider({
+     value:1,
+     min: 0,
+     max: 10,
+     step: 1,
+     slide: function( event, ui ) {
+       $( "#amount" ).val( "$" + ui.value );
+       renderObject.setTranslateSensitivity(ui.value);
+     }
+   });
+ });
+  $("#mousepos").text("x "+0+" y "+0);
 </script>
   </head>
   <body>
@@ -98,7 +119,16 @@ function render()
         </ul>
         <h3 class="text-muted"><b>Example 5:</b> <br>Picking rotate and translate the object. </h3>
         <p>his vertex adds many vertex, selects all vertex polygon and also makes a rotation for its center.</p>
-        <p><div id="mousepos"></div></p>
+        <div class="span3">
+          <div id="mousepos"></div>
+        </div>
+        <div class="span3">
+            <label for="amount">Sensitivity:</label><div id="slider"></div>
+        </div>
+        <div class="span3">
+
+        </div>
+
       </div>
 
 
