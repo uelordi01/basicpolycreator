@@ -33,9 +33,9 @@
   cuadObject.createRectangle(canvasObject.width/2-50,canvasObject.height/2-50,100,100);
   renderObject.addRenderElement(cuadObject);
   test=new Shape();
-  test.createRectangle(0,0,100,50);
+  test.createRectangle(11,11,100,50);
   renderObject.addRenderElement(test);
-  renderObject.setTranslateSensitivity(0.01);
+  renderObject.setTranslateSensitivity(1);
 	//renderObject.setMarkerList(shapeObject.getList());
 
 	canvasObject.onmousedown=function(e){
@@ -45,14 +45,17 @@
     var x=mousePos.x;
     var y=mousePos.y;
     var index=renderObject.findSelectedShape(x,y);
-
+    renderObject.setSelectedIndex(index);
     var list=renderObject.getRenderList();
-    list[index].setPos(x,y);
-    for(var i=0;i<list.length;i++)
+    if(index!=-1)
     {
-      list[i].deselect();
+      list[index].setPos(x,y);
+      for(var i=0;i<list.length;i++)
+      {
+        list[i].deselect();
+      }
+      list[index].printSelected();
     }
-    list[index].printSelected();
 
 	}
 	canvasObject.onmousemove=function(e)
@@ -68,8 +71,20 @@
 			if(e.which==1)
 			{
           var list=renderObject.getRenderList();
-          var index=renderObject.findSelectedShape(x,y);
-          list[index].moveTo(x,y,0.07);
+          var index=renderObject.getSelectedIndex();
+          //var index=renderObject.findSelectedShape(x,y);
+          if(index!=-1)
+          {
+
+            if(list[index].isMovable(x,y,canvasObject.width,canvasObject.height)==1)
+            {
+              console.log("moving");
+            list[index].moveTo(x,y,1);
+            }
+            else {
+              console.log("out of index");
+            }
+          }
           $("#mousepos").text("xpos "+x+" ypos "+y);
 			}
 		}
